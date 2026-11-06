@@ -1,0 +1,360 @@
+/* =====================
+   RESET GLOBAL
+===================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* =====================
+   BODY
+===================== */
+body {
+  background-color: #f3f3f3;
+  color: #6b7796;
+}
+
+/* =====================
+   HEADER
+===================== */
+.site-header {
+  background: #161111;
+  color: #6b7796;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 30px;
+}
+
+.logo {
+  font-size: 27px;
+  font-weight: bold;
+}
+
+.menu-burger {
+  display: none;
+  font-size: 26px;
+  cursor: pointer;
+}
+
+.header-icons {
+  display: flex;
+  gap: 18px;
+  font-size: 18px;
+}
+
+.header-icons .icon {
+  cursor: pointer;
+}
+
+.panier {
+  position: relative;
+}
+
+#cart-count {
+  background: red;
+  color: white;
+  font-size: 16px;
+  padding: 2px 6px;
+  border-radius: 50%;
+  margin-left: 4px;
+}
+
+/* =====================
+   NAVBAR
+===================== */
+.main-nav {
+  background: #111111;
+}
+
+.main-nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+
+.main-nav li {
+  margin: 0 18px;
+}
+
+.main-nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 14px 0;
+  display: block;
+}
+
+.main-nav a:hover {
+  color: #1e90ff;
+}
+
+/* =====================
+   SECTION PRODUITS
+===================== */
+.products {
+  padding: 40px 25px;
+}
+
+.products h1 {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 40px;
+  letter-spacing: 1px;
+}
+
+/* =====================
+   GRILLE PRODUITS
+===================== */
+.product-grid {
+  max-width: 1300px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 25px;
+}
+
+/* =====================
+   CARTE PRODUIT
+===================== */
+.product-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 18px 15px;
+  text-align: center;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* =====================
+   IMAGE PRODUIT
+===================== */
+.product-card img {
+  width: 100%;
+  height: 170px;
+  object-fit: contain;
+  margin-bottom: 12px;
+}
+
+/* =====================
+   TITRE PRODUIT
+===================== */
+.product-card h2 {
+  font-size: 14px;
+  min-height: 45px;
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+
+/* =====================
+   PRIX
+===================== */
+.price {
+  color: rgb(35, 117, 165);
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+/* =====================
+   BOUTON
+===================== */
+.product-card button {
+  width: 100%;
+  background: #1e90ff;
+  color: white;
+  border: none;
+  padding: 10px 0;
+  font-size: 13px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.product-card button:hover {
+  background: #0066cc;
+}
+
+/* =====================
+   RESPONSIVE
+===================== */
+@media (max-width: 768px) {
+
+  .menu-burger {
+    display: block;
+  }
+
+  .main-nav ul {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .main-nav li {
+    margin: 8px 0;
+  }
+
+  .products h1 {
+    font-size: 26px;
+  }
+}
+
+
+/* Met en surbrillance le lien du menu sélectionné */
+.main-nav a.active-filter {
+  color: #1e90ff;
+  border-bottom: 2px solid #1e90ff;
+}/* Met en surbrillance le lien du menu sélectionné */
+.main-nav a.active-filter {
+  color: #1e90ff;
+  border-bottom: 2px solid #1e90ff;
+}
+
+
+.btn-vider {
+    background: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100%; /* Le bouton prend toute la largeur sur mobile */
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.btn-vider:hover {
+    background: #cc0000;
+}
+
+
+
+/* Ajustements pour les petits écrans (téléphones) */
+@media (max-width: 600px) {
+  .logo {
+    font-size: 18px; /* Logo un peu plus petit */
+  }
+
+  .main-nav ul {
+    flex-wrap: wrap; /* Les liens du menu passent à la ligne si besoin */
+    padding: 10px 0;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 produits par ligne au lieu d'un seul */
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .product-card h2 {
+    font-size: 13px; /* Texte plus petit pour les titres */
+  }
+
+  .price {
+    font-size: 14px;
+  }
+}
+
+
+
+
+/* =====================
+   FOOTER RÉSEAUX SOCIAUX
+===================== */
+.site-footer {
+  background: #f3f4f5;
+  color: #fff;
+  text-align: center;
+  padding: 30px 20px;
+  margin-top: 40px;
+}
+
+.footer-name {
+  margin-bottom: 16px;
+  font-size: 14px;
+  color: #aaa;
+}
+
+.footer-socials {
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+}
+
+.footer-socials a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #222;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.footer-socials a:hover {
+  background: #1e90ff;
+  transform: translateY(-4px);
+}
+
+.footer-socials img {
+  width: 22px;
+  height: 22px;
+  filter: invert(1); /* rend les icônes blanches */
+}
+
+
+
+/* =====================
+   BARRE DE RECHERCHE
+===================== */
+#barre-recherche {
+  background: #1a1a1a;
+  padding: 14px 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: slideDown 0.25s ease;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+#input-recherche {
+  flex: 1;
+  padding: 10px 16px;
+  border-radius: 25px;
+  border: none;
+  font-size: 15px;
+  outline: none;
+  background: #333;
+  color: #fff;
+}
+
+#input-recherche::placeholder {
+  color: #aaa;
+}
+
+#btn-fermer-recherche {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px 10px;
+  transition: color 0.2s;
+}
+
+#btn-fermer-recherche:hover {
+  color: #ff4d4d;
+}
