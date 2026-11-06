@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Mon Panier - Papifoot-shop</title>
+    <link rel="stylesheet" href="index.css">
+    <style>
+        .panier-container { max-width: 800px; margin: 50px auto; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .item-panier { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #eee; padding: 15px 0; }
+        .total { font-size: 24px; font-weight: bold; text-align: right; margin-top: 20px; color: #111; }
+        .btn-vider { background: #ff4d4d; color: white; border: none; padding: 10px 15px; cursor: pointer; border-radius: 5px; font-size: 14px; }
+        .btn-vider:hover { background: #cc0000; }
+        input::placeholder { color: #aaa; }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="logo"><a href="index.html" style="color:white; text-decoration:none;">Papifoot-shop</a></div>
+        <a href="index.html" style="color:white; text-decoration:none;">← Retour à la boutique</a>
+    </header>
+
+    <div class="panier-container">
+        <h1>Votre Panier</h1>
+        
+        <div id="liste-panier">
+            </div>
+
+        <div class="total" id="total-commande">Total : 0,00 €</div>
+        
+        <div style="display: flex; gap: 10px; margin-top: 20px;">
+            <button class="btn-vider" onclick="viderPanier()">Vider le panier</button>
+            <button id="btn-passer-commande" style="flex: 1; background:#1e90ff; color:white; border:none; padding:15px; border-radius:5px; font-weight:bold; cursor:pointer;">
+                Passer la commande
+            </button>
+        </div>
+
+        <div id="formulaire-commande" style="display:none; margin-top:30px; border-top:2px solid #eee; padding-top:20px;">
+            <h3>Détails de livraison</h3>
+            <form id="checkout-form">
+                <input type="text" id="nom" placeholder="Nom complet" required style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ccc; border-radius:5px;">
+                <input type="email" id="email" placeholder="Adresse Email" required style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ccc; border-radius:5px;">
+                <input type="text" id="adresse" placeholder="Adresse complète de livraison" required style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ccc; border-radius:5px;">
+                
+                <div style="background:#f9f9f9; padding:15px; border-radius:5px; margin-bottom:15px;">
+                    <p style="margin-top:0;"><strong>Mode de paiement :</strong></p>
+                    <label><input type="radio" name="pay" checked> Carte Bancaire</label>
+                    <label style="margin-left:20px;"><input type="radio" name="pay"> PayPal</label>
+                </div>
+
+                <button type="submit" style="width:100%; background:#28a745; color:white; border:none; padding:15px; border-radius:5px; font-weight:bold; cursor:pointer; font-size:16px;">
+                    Confirmer et Payer la commande
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const listeElt = document.getElementById('liste-panier');
+        const totalElt = document.getElementById('total-commande');
+        let panier = JSON.parse(localStorage.getItem('monPanier')) || [];
+
+        function afficherPanier() {
+            listeElt.innerHTML = '';
+            let total = 0;
+
+            if (panier.length === 0) {
+                listeElt.innerHTML = "<p style='text-align:center; padding: 20px;'>Votre panier est vide.</p>";
+            } else {
+                panier.forEach((produit, index) => {
+                    let prixNumerique = parseFloat(produit.prix.replace('€', '').replace(',', '.'));
+                    total += prixNumerique;
+
+                    listeElt.innerHTML += `
+                        <div class="item-panier">
+                            <div style="display:flex; align-items:center; gap:15px;">
+                                <img src="${produit.image}" alt="${produit.nom}" style="width:60px; height:60px; object-fit:contain;">
+                                <div>
+                                    <div style="font-weight:bold;">${produit.nom}</div>
+                                    <div style="color:#1e90ff;">${produit.prix}</div>
+                                </div>
+                            </div>
+                            <button onclick="supprimerArticle(${index})" style="background:none; border:none; color:red; cursor:pointer; font-size:18px;" title="Supprimer">
+                                🗑️
+                            </button>
+                        </div>
+                    `;
+                });
+            }
+            totalElt.textContent = `Total : ${total.toFixed(2).replace('.', ',')} €`;
+        }
+
+        function supprimerArticle(index) {
+            panier.splice(index, 1);
+            localStorage.setItem('monPanier', JSON.stringify(panier));
+            afficherPanier();
+        }
+
+        function viderPanier() {
+            if(confirm("Voulez-vous vraiment vider tout le panier ?")) {
+                localStorage.removeItem('monPanier');
+                panier = [];
+                afficherPanier();
+            }
+        }
+
+        // --- GESTION DE LA COMMANDE ---
+        document.getElementById('btn-passer-commande').addEventListener('click', function() {
+            if(panier.length === 0) {
+                alert("Votre panier est vide !");
+            } else {
+                document.getElementById('formulaire-commande').style.display = 'block';
+                // Scroll automatique vers le formulaire
+                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+            }
+        });
+
+        document.getElementById('checkout-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const nom = document.getElementById('nom').value;
+            
+            // Simulation de paiement
+            this.innerHTML = "<h3 style='text-align:center;'>Connexion sécurisée à la banque... ⏳</h3>";
+            
+            setTimeout(() => {
+                alert("Merci " + nom + " ! Votre commande a été payée avec succès.");
+                localStorage.removeItem('monPanier');
+                window.location.href = "index.html";
+            }, 3000);
+        });
+
+        afficherPanier();
+    </script>
+</body>
+</html>
+    
